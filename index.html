@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Charlie the Cat</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
   <style>
     * {
       margin: 0;
@@ -12,55 +13,79 @@
     }
 
     body {
-      background-color: #dbeafe;
-      font-family: Georgia, serif;
-      color: #1e3a5f;
+      background-color: #f9f3e8;
+      font-family: 'EB Garamond', Georgia, serif;
+      color: #3b2a1a;
       text-align: center;
-      padding: 40px 20px;
+      padding: 50px 20px;
+    }
+
+    .page-border {
+      max-width: 660px;
+      margin: 0 auto;
+      border: 2px solid #c4a265;
+      padding: 40px 30px;
+      background-color: #fffdf7;
+      box-shadow: 0 4px 24px rgba(90,60,20,0.1);
     }
 
     h1 {
-      font-size: 2.5rem;
-      margin-bottom: 8px;
-      color: #1e3a5f;
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 3rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      color: #3b2a1a;
+      margin-bottom: 4px;
+    }
+
+    .divider {
+      color: #c4a265;
+      font-size: 1.2rem;
+      letter-spacing: 0.3em;
+      margin: 10px 0 6px;
     }
 
     .subtitle {
+      font-family: 'Playfair Display', Georgia, serif;
       font-size: 1rem;
-      color: #5b8db8;
-      margin-bottom: 30px;
       font-style: italic;
+      color: #8a6a3a;
+      margin-bottom: 28px;
     }
 
     .hero {
-      max-width: 600px;
-      margin: 0 auto 30px;
-      background: #1d4ed8;
-      color: white;
-      border-radius: 16px;
-      padding: 28px 28px;
-      box-shadow: 0 6px 20px rgba(29,78,216,0.35);
+      background-color: #f2e8d5;
+      border: 1px solid #c4a265;
+      border-radius: 4px;
+      padding: 26px 28px;
+      margin-bottom: 30px;
+      text-align: left;
     }
 
     .hero h2 {
-      font-size: 1.5rem;
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #3b2a1a;
       margin-bottom: 12px;
+      text-align: center;
     }
 
     .hero p {
-      font-size: 1rem;
-      line-height: 1.7;
-      opacity: 0.92;
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: #4a3520;
     }
 
     .photo-frame {
       display: inline-block;
-      border: 6px solid #1d4ed8;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 8px 24px rgba(29,78,216,0.3);
+      border: 6px solid #c4a265;
+      padding: 6px;
+      background: #fffdf7;
+      box-shadow: 0 6px 20px rgba(90,60,20,0.2);
       max-width: 600px;
       width: 100%;
+      margin-bottom: 30px;
     }
 
     .photo-frame img {
@@ -69,70 +94,77 @@
     }
 
     .about {
-      max-width: 600px;
-      margin: 30px auto 0;
-      background: #eff6ff;
-      border-radius: 12px;
-      padding: 20px 24px;
-      box-shadow: 0 4px 12px rgba(29,78,216,0.15);
+      background-color: #f2e8d5;
+      border: 1px solid #c4a265;
+      border-radius: 4px;
+      padding: 24px 28px;
     }
 
     .about h2 {
-      font-size: 1.2rem;
-      margin-bottom: 12px;
-      color: #1e3a5f;
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.3rem;
+      color: #3b2a1a;
+      margin-bottom: 14px;
     }
 
     .about ul {
       list-style: none;
-      line-height: 2;
-      font-size: 0.95rem;
+      line-height: 2.1;
+      font-size: 1rem;
+      color: #4a3520;
     }
 
     .about ul li::before {
-      content: "• ";
-      color: #3b82f6;
+      content: "— ";
+      color: #c4a265;
     }
 
     footer {
-      margin-top: 40px;
-      font-size: 0.8rem;
-      color: #5b8db8;
+      margin-top: 30px;
+      font-family: 'Playfair Display', Georgia, serif;
+      font-style: italic;
+      font-size: 0.85rem;
+      color: #9a7a50;
     }
   </style>
 </head>
 <body>
 
-  <h1>Charlie</h1>
-  <p class="subtitle">The World's Greatest Tuxedo Cat</p>
+  <div class="page-border">
 
-  <div class="hero">
-    <h2>Meet Charlie — The Best Cat in the World</h2>
-    <p>
-      Charlie is not just any cat. Born in the beautiful city of Istanbul, he carries
-      the charm and elegance of one of the world's greatest cities. From the very first
-      day, it was clear that Charlie was something special — incredibly loving, endlessly
-      entertaining, and truly amazing in every way. There is simply no cat like him.
-    </p>
+    <h1>Charlie</h1>
+    <div class="divider">— ✦ —</div>
+    <p class="subtitle">The World's Greatest Tuxedo Cat</p>
+
+    <div class="hero">
+      <h2>Meet Charlie — The Best Cat in the World</h2>
+      <p>
+        Charlie is not just any cat. Born in the beautiful city of Istanbul, he carries
+        the charm and elegance of one of the world's greatest cities. From the very first
+        day, it was clear that Charlie was something special — incredibly loving, endlessly
+        entertaining, and truly amazing in every way. There is simply no cat like him.
+      </p>
+    </div>
+
+    <div class="photo-frame">
+      <img src="70EA2FE4-7D55-474B-92CE-4F0476322602.jpeg" alt="Charlie the cat sleeping on a chair" />
+    </div>
+
+    <div class="about">
+      <h2>About Charlie</h2>
+      <ul>
+        <li>Black & white tuxedo gentleman</li>
+        <li>Originally from Istanbul, Turkey</li>
+        <li>Professional napper</li>
+        <li>Expert chair occupier</li>
+        <li>Fluffy tail certified</li>
+        <li>Available for cuddles (on his terms)</li>
+      </ul>
+    </div>
+
+    <footer>Made with love for Charlie</footer>
+
   </div>
-
-  <div class="photo-frame">
-    <img src="70EA2FE4-7D55-474B-92CE-4F0476322602.jpeg" alt="Charlie the cat sleeping on a chair" />
-  </div>
-
-  <div class="about">
-    <h2>About Charlie</h2>
-    <ul>
-      <li>Black & white tuxedo gentleman</li>
-      <li>Originally from Istanbul, Turkey</li>
-      <li>Professional napper</li>
-      <li>Expert chair occupier</li>
-      <li>Fluffy tail certified</li>
-      <li>Available for cuddles (on his terms)</li>
-    </ul>
-  </div>
-
-  <footer>Made with love for Charlie</footer>
 
 </body>
 </html>
