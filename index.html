@@ -7,12 +7,14 @@
   <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,700;1,6..96,400;1,6..96,700&family=Bitter:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg:    oklch(95.5% 0.012 75);
-      --text:  oklch(22% 0.04 55);
-      --mid:   oklch(50% 0.045 65);
-      --light: oklch(65% 0.04 70);
-      --gold:  oklch(66% 0.09 72);
-      --rule:  oklch(87% 0.025 72);
+      --bg:      oklch(96% 0.012 75);
+      --text:    oklch(22% 0.04 55);
+      --mid:     oklch(50% 0.045 65);
+      --light:   oklch(65% 0.04 70);
+      --amber:   oklch(62% 0.13 65);
+      --rule:    oklch(87% 0.025 72);
+      --film-bg: oklch(13% 0.015 55);
+      --film-hole: oklch(26% 0.015 55);
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -22,22 +24,48 @@
       font-family: 'Bitter', Georgia, serif;
       color: var(--text);
       -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
     }
+
+    /* ── SCROLL ANIMATIONS ── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.65s ease var(--delay, 0s),
+                  transform 0.65s ease var(--delay, 0s);
+    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    .fade-in {
+      opacity: 0;
+      transition: opacity 0.8s ease var(--delay, 0s);
+    }
+    .fade-in.visible { opacity: 1; }
 
     /* ── HEADER ── */
     header {
       text-align: center;
-      padding: 52px 24px 44px;
+      padding: 56px 24px 48px;
+      overflow: hidden;
+    }
+
+    .coords {
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      color: var(--amber);
+      text-transform: uppercase;
+      margin-bottom: 6px;
     }
 
     .kicker {
-      display: inline-block;
-      font-size: 0.65rem;
+      display: block;
+      font-size: 0.62rem;
       font-weight: 600;
       letter-spacing: 0.25em;
       text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 18px;
+      color: var(--light);
+      margin-bottom: 20px;
     }
 
     h1 {
@@ -46,7 +74,22 @@
       font-weight: 700;
       line-height: 1;
       color: var(--text);
-      margin-bottom: 18px;
+      will-change: transform;
+    }
+
+    .masthead-rule {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 22px auto;
+      max-width: 280px;
+    }
+    .masthead-rule span { flex: 1; height: 1px; background: var(--rule); }
+    .masthead-rule i {
+      font-family: 'Bodoni Moda', serif;
+      font-style: italic;
+      font-size: 0.8rem;
+      color: var(--amber);
     }
 
     .tag-row {
@@ -56,25 +99,14 @@
       gap: 10px;
       flex-wrap: wrap;
     }
-
-    .tag {
-      font-size: 0.72rem;
-      font-style: italic;
-      color: var(--light);
-    }
-
-    .tag-sep {
-      width: 3px; height: 3px;
-      border-radius: 50%;
-      background: var(--rule);
-      flex-shrink: 0;
-    }
+    .tag { font-size: 0.72rem; font-style: italic; color: var(--light); }
+    .tag-sep { width: 3px; height: 3px; border-radius: 50%; background: var(--rule); flex-shrink: 0; }
 
     /* ── HERO POLAROID ── */
     .hero-wrap {
       display: flex;
       justify-content: center;
-      padding: 8px 32px 48px;
+      padding: 8px 32px 52px;
     }
 
     .polaroid-hero {
@@ -82,31 +114,20 @@
       padding: 10px 10px 48px;
       box-shadow:
         0 2px 6px oklch(22% 0.04 55 / 0.1),
-        0 12px 36px oklch(22% 0.04 55 / 0.12);
+        0 14px 40px oklch(22% 0.04 55 / 0.14);
       transform: rotate(-1.8deg);
-      max-width: 320px;
+      max-width: 300px;
       width: 100%;
-      transition: transform 0.3s ease;
+      cursor: zoom-in;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
-
-    .polaroid-hero:hover { transform: rotate(0deg) scale(1.02); }
-
-    .polaroid-hero img {
-      width: 100%;
-      display: block;
-      aspect-ratio: 3/4;
-      object-fit: cover;
-      object-position: center 20%;
+    .polaroid-hero:hover {
+      transform: rotate(0deg) scale(1.03);
+      box-shadow: 0 6px 16px oklch(22% 0.04 55 / 0.14),
+                  0 24px 56px oklch(22% 0.04 55 / 0.16);
     }
-
-    .polaroid-hero .pol-label {
-      text-align: center;
-      padding-top: 12px;
-      font-size: 0.78rem;
-      font-style: italic;
-      color: var(--mid);
-      letter-spacing: 0.02em;
-    }
+    .polaroid-hero img { width: 100%; display: block; aspect-ratio: 3/4; object-fit: cover; object-position: center 20%; }
+    .polaroid-hero .pol-label { text-align: center; padding-top: 12px; font-size: 0.78rem; font-style: italic; color: var(--mid); }
 
     /* ── QUOTE ── */
     .quote-block {
@@ -115,7 +136,6 @@
       max-width: 500px;
       margin: 0 auto;
     }
-
     .quote-block blockquote {
       font-family: 'Bodoni Moda', serif;
       font-size: clamp(1.2rem, 5vw, 1.6rem);
@@ -124,14 +144,9 @@
       color: var(--text);
       margin-bottom: 16px;
     }
+    .quote-block p { font-size: 0.9rem; line-height: 1.8; color: var(--mid); }
 
-    .quote-block p {
-      font-size: 0.88rem;
-      line-height: 1.8;
-      color: var(--mid);
-    }
-
-    /* ── FACTS STRIP ── */
+    /* ── FACTS ── */
     .facts {
       border-top: 1px solid var(--rule);
       border-bottom: 1px solid var(--rule);
@@ -140,160 +155,136 @@
       justify-content: center;
       flex-wrap: wrap;
     }
-
-    .fact-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 8px 16px;
-      border-right: 1px solid var(--rule);
-    }
-
+    .fact-item { display: flex; flex-direction: column; align-items: center; padding: 8px 14px; border-right: 1px solid var(--rule); }
     .fact-item:last-child { border-right: none; }
-
-    .fact-label {
-      font-size: 0.58rem;
-      font-weight: 600;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 3px;
-    }
-
-    .fact-value {
-      font-family: 'Bodoni Moda', serif;
-      font-size: 0.85rem;
-      color: var(--text);
-      white-space: nowrap;
-    }
+    .fact-label { font-size: 0.58rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--amber); margin-bottom: 3px; }
+    .fact-value { font-family: 'Bodoni Moda', serif; font-size: 0.85rem; color: var(--text); white-space: nowrap; }
 
     /* ── GALLERY HEADING ── */
-    .gallery-head {
-      text-align: center;
-      padding: 52px 24px 16px;
+    .gallery-head { text-align: center; padding: 52px 24px 12px; }
+    .gallery-head h2 { font-family: 'Bodoni Moda', serif; font-size: clamp(1.5rem, 7vw, 2.2rem); font-weight: 700; color: var(--text); }
+    .gallery-head p { font-size: 0.8rem; font-style: italic; color: var(--light); margin-top: 5px; }
+
+    /* ── FILM STRIP ── */
+    .film-strip {
+      background: var(--film-bg);
+      margin-top: 32px;
+      user-select: none;
     }
 
-    .gallery-head h2 {
-      font-family: 'Bodoni Moda', serif;
-      font-size: clamp(1.5rem, 7vw, 2.2rem);
-      font-weight: 700;
-      color: var(--text);
+    .sprocket-row {
+      height: 20px;
+      background-image: repeating-linear-gradient(
+        to right,
+        var(--film-bg) 0px 8px,
+        var(--film-hole) 8px 24px,
+        var(--film-bg) 24px 32px
+      );
     }
 
-    .gallery-head p {
-      font-size: 0.8rem;
-      font-style: italic;
-      color: var(--light);
-      margin-top: 5px;
+    .film-scroll {
+      overflow-x: auto;
+      overflow-y: hidden;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      cursor: grab;
+      padding: 16px 24px;
+    }
+    .film-scroll:active { cursor: grabbing; }
+    .film-scroll::-webkit-scrollbar { display: none; }
+
+    .film-track {
+      display: flex;
+      gap: 16px;
+      width: max-content;
+      padding: 0 8px;
     }
 
-    /* ── PHOTO SCATTER GRID ── */
-    .scatter {
-      padding: 32px 24px 24px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 40px 28px;
-      max-width: 560px;
-      margin: 0 auto;
+    .film-frame {
+      scroll-snap-align: center;
+      flex-shrink: 0;
+      width: 200px;
+      display: flex;
+      flex-direction: column;
     }
 
-    .pol {
-      background: white;
-      padding: 8px 8px 40px;
-      box-shadow:
-        0 2px 5px oklch(22% 0.04 55 / 0.1),
-        0 8px 24px oklch(22% 0.04 55 / 0.1);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .pol:hover {
-      transform: rotate(0deg) scale(1.04) !important;
-      box-shadow:
-        0 4px 12px oklch(22% 0.04 55 / 0.14),
-        0 16px 40px oklch(22% 0.04 55 / 0.14);
-    }
-
-    .pol:nth-child(1) { transform: rotate(-2.5deg); }
-    .pol:nth-child(2) { transform: rotate(1.8deg);  margin-top: 24px; }
-    .pol:nth-child(3) { transform: rotate(2.2deg);  margin-top: -16px; }
-    .pol:nth-child(4) { transform: rotate(-1.6deg); }
-
-    .pol img {
-      width: 100%;
-      display: block;
-      aspect-ratio: 4/5;
+    .film-frame img {
+      width: 200px;
+      height: 200px;
       object-fit: cover;
+      display: block;
+      cursor: zoom-in;
+      filter: sepia(0.12) contrast(1.05);
+      transition: filter 0.3s ease;
     }
+    .film-frame:hover img { filter: sepia(0) contrast(1); }
 
-    .pol-num {
-      font-family: 'Bodoni Moda', serif;
-      font-size: 0.6rem;
-      font-weight: 700;
-      font-style: italic;
-      letter-spacing: 0.1em;
-      color: var(--rule);
-      text-align: center;
-      padding: 8px 4px 0;
+    .frame-meta {
+      padding: 10px 4px 4px;
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
     }
-
-    .pol-title {
-      text-align: center;
+    .frame-num {
       font-family: 'Bodoni Moda', serif;
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       font-style: italic;
-      color: var(--mid);
-      padding: 2px 4px 0;
+      color: var(--amber);
+      flex-shrink: 0;
+    }
+    .frame-title {
+      font-size: 0.72rem;
+      font-style: italic;
+      color: oklch(72% 0.025 72);
       line-height: 1.3;
     }
 
-    /* ── CLOSING QUOTE ── */
-    .closing {
-      text-align: center;
-      padding: 40px 28px;
-      max-width: 400px;
-      margin: 0 auto;
-    }
-
-    .closing p {
-      font-family: 'Bodoni Moda', serif;
-      font-size: 1rem;
-      font-style: italic;
-      color: var(--light);
-      line-height: 1.6;
-    }
+    /* ── CLOSING ── */
+    .closing { text-align: center; padding: 52px 28px; max-width: 380px; margin: 0 auto; }
+    .closing p { font-family: 'Bodoni Moda', serif; font-size: 1rem; font-style: italic; color: var(--light); line-height: 1.6; }
 
     /* ── FOOTER ── */
-    footer {
-      text-align: center;
-      padding: 24px 24px 48px;
-      border-top: 1px solid var(--rule);
-    }
+    footer { text-align: center; padding: 24px 24px 52px; border-top: 1px solid var(--rule); }
+    .footer-ornament { color: var(--amber); letter-spacing: 0.3em; margin-bottom: 10px; }
+    footer p { font-size: 0.75rem; font-style: italic; color: var(--light); }
 
-    .footer-ornament {
-      color: var(--gold);
-      letter-spacing: 0.3em;
-      margin-bottom: 10px;
+    /* ── LIGHTBOX ── */
+    #lightbox {
+      position: fixed;
+      inset: 0;
+      background: oklch(10% 0.015 55 / 0.95);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 200;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      padding: 20px;
+      cursor: zoom-out;
     }
-
-    footer p {
-      font-size: 0.75rem;
-      font-style: italic;
-      color: var(--light);
+    #lightbox.open { opacity: 1; pointer-events: all; }
+    #lightbox img { max-width: 100%; max-height: 88vh; object-fit: contain; }
+    #lightbox-close {
+      position: absolute;
+      top: 20px; right: 24px;
+      font-family: 'Bodoni Moda', serif;
+      font-size: 1.5rem;
+      color: oklch(80% 0.02 72);
+      cursor: pointer;
+      line-height: 1;
     }
 
     /* ── DESKTOP ── */
     @media (min-width: 640px) {
-      .polaroid-hero { max-width: 280px; }
-
-      .scatter {
-        grid-template-columns: 1fr 1fr;
-        gap: 48px 40px;
-        max-width: 600px;
-      }
+      .polaroid-hero { max-width: 260px; }
+      .film-frame { width: 240px; }
+      .film-frame img { width: 240px; height: 240px; }
     }
 
     @media (min-width: 900px) {
-      body { max-width: 800px; margin: 0 auto; }
+      body { max-width: 840px; margin: 0 auto; }
     }
   </style>
 </head>
@@ -301,9 +292,13 @@
 
   <!-- HEADER -->
   <header>
-    <span class="kicker">Istanbul, Turkey</span>
-    <h1>Charlie</h1>
-    <div class="tag-row">
+    <p class="coords fade-in" style="--delay:0s">41°01′N · 28°58′E</p>
+    <span class="kicker fade-in" style="--delay:0.1s">Istanbul, Turkey</span>
+    <h1 id="parallax-title">Charlie</h1>
+    <div class="masthead-rule fade-in" style="--delay:0.2s">
+      <span></span><i>✦</i><span></span>
+    </div>
+    <div class="tag-row fade-in" style="--delay:0.3s">
       <span class="tag">Tuxedo gentleman</span>
       <span class="tag-sep"></span>
       <span class="tag">World's greatest cat</span>
@@ -314,74 +309,73 @@
 
   <!-- HERO POLAROID -->
   <div class="hero-wrap">
-    <div class="polaroid-hero">
+    <div class="polaroid-hero fade-in" style="--delay:0.4s" data-lightbox="70EA2FE4-7D55-474B-92CE-4F0476322602.jpeg">
       <img src="70EA2FE4-7D55-474B-92CE-4F0476322602.jpeg" alt="Charlie" />
       <p class="pol-label">Charlie at home — fully at ease.</p>
     </div>
   </div>
 
-  <!-- QUOTE + INTRO -->
+  <!-- QUOTE -->
   <div class="quote-block">
-    <blockquote>"Born in Istanbul. Lives like a legend."</blockquote>
-    <p>Incredibly loving, endlessly entertaining, and utterly one of a kind. From the streets of one of the world's greatest cities — there is simply no cat like Charlie.</p>
+    <blockquote class="fade-up">"Born in Istanbul. Lives like a legend."</blockquote>
+    <p class="fade-up" style="--delay:0.1s">Incredibly loving, endlessly entertaining, and utterly one of a kind. From the streets of one of the world's greatest cities — there is simply no cat like Charlie.</p>
   </div>
 
   <!-- FACTS -->
-  <div class="facts">
-    <div class="fact-item">
-      <span class="fact-label">Origin</span>
-      <span class="fact-value">Istanbul</span>
-    </div>
-    <div class="fact-item">
-      <span class="fact-label">Breed</span>
-      <span class="fact-value">Tuxedo</span>
-    </div>
-    <div class="fact-item">
-      <span class="fact-label">Specialty</span>
-      <span class="fact-value">Napping</span>
-    </div>
-    <div class="fact-item">
-      <span class="fact-label">Talent</span>
-      <span class="fact-value">Chair theft</span>
-    </div>
-    <div class="fact-item">
-      <span class="fact-label">Status</span>
-      <span class="fact-value">Legendary</span>
-    </div>
+  <div class="facts fade-up">
+    <div class="fact-item"><span class="fact-label">Origin</span><span class="fact-value">Istanbul</span></div>
+    <div class="fact-item"><span class="fact-label">Breed</span><span class="fact-value">Tuxedo</span></div>
+    <div class="fact-item"><span class="fact-label">Specialty</span><span class="fact-value">Napping</span></div>
+    <div class="fact-item"><span class="fact-label">Talent</span><span class="fact-value">Chair theft</span></div>
+    <div class="fact-item"><span class="fact-label">Status</span><span class="fact-value">Legendary</span></div>
   </div>
 
   <!-- GALLERY -->
   <div class="gallery-head">
-    <h2>A Life Well Lived</h2>
-    <p>Moments from the extraordinary life of Charlie</p>
+    <h2 class="fade-up">A Life Well Lived</h2>
+    <p class="fade-up" style="--delay:0.1s">Swipe through moments from the extraordinary life of Charlie</p>
   </div>
 
-  <div class="scatter">
-    <div class="pol">
-      <img src="IMG_2738.jpeg" alt="Charlie" />
-      <p class="pol-num">I</p>
-      <p class="pol-title">The Gentleman at Rest</p>
+  <div class="film-strip fade-in" style="--delay:0.1s">
+    <div class="sprocket-row"></div>
+    <div class="film-scroll" id="filmScroll">
+      <div class="film-track">
+        <div class="film-frame" data-lightbox="IMG_2738.jpeg">
+          <img src="IMG_2738.jpeg" alt="Charlie" />
+          <div class="frame-meta">
+            <span class="frame-num">I</span>
+            <span class="frame-title">The Gentleman at Rest</span>
+          </div>
+        </div>
+        <div class="film-frame" data-lightbox="IMG_2690.jpeg">
+          <img src="IMG_2690.jpeg" alt="Charlie" />
+          <div class="frame-meta">
+            <span class="frame-num">II</span>
+            <span class="frame-title">Eyes of Istanbul</span>
+          </div>
+        </div>
+        <div class="film-frame" data-lightbox="IMG_2764.jpeg">
+          <img src="IMG_2764.jpeg" alt="Charlie" />
+          <div class="frame-meta">
+            <span class="frame-num">III</span>
+            <span class="frame-title">Simply Magnificent</span>
+          </div>
+        </div>
+        <div class="film-frame" data-lightbox="2b4b2d00-13b2-440b-8045-89d4b7d92439.jpeg">
+          <img src="2b4b2d00-13b2-440b-8045-89d4b7d92439.jpeg" alt="Charlie" />
+          <div class="frame-meta">
+            <span class="frame-num">IV</span>
+            <span class="frame-title">A Portrait of Perfection</span>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="pol">
-      <img src="IMG_2690.jpeg" alt="Charlie" />
-      <p class="pol-num">II</p>
-      <p class="pol-title">Eyes of Istanbul</p>
-    </div>
-    <div class="pol">
-      <img src="IMG_2764.jpeg" alt="Charlie" />
-      <p class="pol-num">III</p>
-      <p class="pol-title">Simply Magnificent</p>
-    </div>
-    <div class="pol">
-      <img src="2b4b2d00-13b2-440b-8045-89d4b7d92439.jpeg" alt="Charlie" />
-      <p class="pol-num">IV</p>
-      <p class="pol-title">A Portrait of Perfection</p>
-    </div>
+    <div class="sprocket-row"></div>
   </div>
 
   <!-- CLOSING -->
   <div class="closing">
-    <p>"Some beings are simply born extraordinary — and Charlie proves it every single day."</p>
+    <p class="fade-up">"Some beings are simply born extraordinary — and Charlie proves it every single day."</p>
   </div>
 
   <!-- FOOTER -->
@@ -390,5 +384,67 @@
     <p>Made with love for Charlie</p>
   </footer>
 
+  <!-- LIGHTBOX -->
+  <div id="lightbox">
+    <span id="lightbox-close">✕</span>
+    <img id="lightbox-img" src="" alt="" />
+  </div>
+
+  <script>
+    // ── Scroll animations ──
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.fade-up, .fade-in').forEach(el => observer.observe(el));
+
+    // ── Parallax header ──
+    const title = document.getElementById('parallax-title');
+    window.addEventListener('scroll', () => {
+      if (window.innerWidth < 640) return;
+      title.style.transform = `translateY(${window.scrollY * 0.28}px)`;
+    }, { passive: true });
+
+    // ── Lightbox ──
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+
+    function openLightbox(src) {
+      lightboxImg.src = src;
+      lightbox.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    document.querySelectorAll('[data-lightbox]').forEach(el => {
+      el.addEventListener('click', () => openLightbox(el.dataset.lightbox));
+    });
+
+    lightbox.addEventListener('click', closeLightbox);
+    document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
+
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
+    // ── Film strip drag scroll (desktop) ──
+    const scroll = document.getElementById('filmScroll');
+    let isDown = false, startX, scrollLeft;
+
+    scroll.addEventListener('mousedown', e => {
+      isDown = true;
+      startX = e.pageX - scroll.offsetLeft;
+      scrollLeft = scroll.scrollLeft;
+    });
+    scroll.addEventListener('mouseleave', () => isDown = false);
+    scroll.addEventListener('mouseup', () => isDown = false);
+    scroll.addEventListener('mousemove', e => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - scroll.offsetLeft;
+      scroll.scrollLeft = scrollLeft - (x - startX) * 1.5;
+    });
+  </script>
 </body>
 </html>
